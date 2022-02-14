@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>rocket_integration</id>
+    <name>Rocket.Chat</name>
+    <summary>🚀 Rocket.Chat App for Nextcloud</summary>
+    <description><![CDATA[Rocket Chat Official App v 0.3.1 Alpha For demo purposes only, do not use in production.
+- ** 💬 Chat integration!** Rocket Chat Integrates Conversations in each document. Allowing your team to have an open dialog about the file.
+- ** 👥 Private, group, public and password protected calls! Via JITSI, Zoom, or Google Meet.
+- ** 🚀 Seamless LDAP Integration with Rocket.Chat Enterprise.
+- ** 🚀 Seamless User base Integration from NextCloud Users to Rocket.Chat.
+	]]></description>
+    <version>0.4.1</version>
+    <licence>agpl</licence>
+    <author mail="apps@rocket.chat" >Rocket Chat Inc</author>
+    <namespace>RocketIntegration</namespace>
+	<default_enable/>
+	<types>
+		<dav />
+	</types>
+    <category>social</category>
+    <bugs>https://rocket.chat/</bugs>
+
+    <dependencies>
+        <nextcloud min-version="22" max-version="23"/>
+    </dependencies>
+	<website>https://github.com/rocket.chat/nextcloud</website>
+	<bugs>https://github.com/rocket.chat/nextcloud/issues</bugs>
+	<repository type="git">https://github.com/rocket.chat/nextcloud.git</repository>
+	<screenshot>https://files.nizu.io/images/screenshot_nextcloud_rc1_48814890.jpg</screenshot>
+    <activity>
+        <settings>
+            <setting>OCA\RocketIntegration\Activity\Setting</setting>
+        </settings>
+    </activity>
+	<screenshot>https://files.nizu.io/images/screenshot_nextcloud_rc1_48814890.jpg</screenshot>
+    <settings>
+        <admin>OCA\RocketIntegration\Settings\AdminSettings</admin>
+    </settings>
+</info>
