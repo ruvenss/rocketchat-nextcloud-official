@@ -10,18 +10,23 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\IServerContainer;
+use Psr\Log\LoggerInterface;
 
 class PageController extends Controller {
     protected $config;
     protected $appName;
     protected $server;
 
-	public function __construct($AppName, IRequest $request, IServerContainer $server) {
-		parent::__construct($AppName, $request);
+	/** @var LoggerInterface */
+	private $logger;
 
+
+	public function __construct($AppName, IRequest $request, LoggerInterface $logger,IServerContainer $server) {
+		parent::__construct($AppName, $request);
 		$this->config = new Config();
 		$this->server = $server;
 		$this->appName = Application::APP_ID;
+        $this->logger = $logger;
 	}
 
 	/**
@@ -36,13 +41,13 @@ class PageController extends Controller {
 	 */
 	public function index() {
 	    $rocketChatUrl = $this->config->getUrl();
-
 	    if ( ! $rocketChatUrl) {
             return new DataResponse(['message' => 'Not found!'], 404);
         }
 
 		$response = new TemplateResponse($this->appName, 'index', [
 		    'url' => $rocketChatUrl,
+            'token' => '-tvvJYTozBXC-hecQk978AVXzS1_D1Brh9mLPIJldfz',
         ]);
 
         $policy = new ContentSecurityPolicy();
@@ -62,6 +67,7 @@ class PageController extends Controller {
      * @return DataResponse|TemplateResponse
      */
     public function file($chat, $new) {
+
         $rocketChatUrl = $this->config->getUrl();
 
         if ( ! $rocketChatUrl) {
