@@ -27,15 +27,16 @@ class AdminSettings implements ISettings {
             'formUrl' => ($this->server->getURLGenerator())->linkToRouteAbsolute($this->appName . '.config.setupUrl'),
             'resetConfig' => ($this->server->getURLGenerator())->linkToRouteAbsolute($this->appName . '.config.resetConfig'),
             'rocketUrl' => $this->config->getUrl(),
+            'personal_access_token' => $this->config->getPersonal_access_token(),
+            'user_id' => $this->config->getAdminID(),
         ]);
     }
-
     /**
      * @return string the section ID, e.g. 'sharing'
      */
     public function getSection()
     {
-        return 'additional';
+        return 'rocketchat';
     }
 
     /**
@@ -48,3 +49,4 @@ class AdminSettings implements ISettings {
         return 0;
     }
 }
+

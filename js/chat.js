@@ -8,12 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     var token = document.querySelector('input[name=rocketchat_token]').value;
-    console.log(token);
-
-    document.querySelector('iframe').addEventListener("load", function() {
-        this.contentWindow.postMessage({
-            event: 'login-with-token',
-            loginToken: token,
-        }, '*');
-    });
+    if (token) {
+        document.querySelector('iframe').addEventListener("load", function() {
+            this.contentWindow.postMessage({
+                externalCommand: 'login-with-token',
+                token: token
+            }, '*');
+        });
+    }
 });

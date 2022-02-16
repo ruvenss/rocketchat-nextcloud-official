@@ -5,7 +5,7 @@
         if ($('#dir').length > 0) {
             OCA.Files.fileActions.registerAction({
                 name: 'open-rocket',
-                displayName: 'Discuss',
+                displayName: 'Chat',
                 mime: 'all',
                 order: 1,
                 permissions: OC.PERMISSION_ALL,

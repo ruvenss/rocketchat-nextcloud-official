@@ -17,7 +17,28 @@ class Config {
         $this->userIdKey = 'user_id';
         $this->appName = Application::APP_ID;
     }
+    public function getPersonal_access_token()
+    {
+        $db = \OC::$server->getDatabaseConnection();
 
+        $query = "SELECT * FROM *PREFIX*appconfig where configkey=? and appid=? LIMIT 1";
+
+        $result = $db->executeQuery($query, [$this->tokenKey, $this->appName]);
+        $row = $result->fetch();
+
+        return $row ? $row['configvalue'] : '';
+    }
+    public function getAdminID()
+    {
+        $db = \OC::$server->getDatabaseConnection();
+
+        $query = "SELECT * FROM *PREFIX*appconfig where configkey=? and appid=? LIMIT 1";
+
+        $result = $db->executeQuery($query, [$this->userIdKey, $this->appName]);
+        $row = $result->fetch();
+
+        return $row ? $row['configvalue'] : '';
+    }
     public function getUrl()
     {
         $db = \OC::$server->getDatabaseConnection();

@@ -4,12 +4,14 @@ namespace OCA\RocketIntegration\Controller;
 
 use OCA\RocketIntegration\AppInfo\Application;
 use OCA\RocketIntegration\Db\Config;
+use OCA\RocketIntegration\Rocket\User as RocketUser;
 use OCP\IRequest;
+use OCP\IServerContainer;
+use OCP\IUserSession;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
-use OCP\IServerContainer;
 use Psr\Log\LoggerInterface;
 
 class PageController extends Controller {
@@ -20,13 +22,25 @@ class PageController extends Controller {
 	/** @var LoggerInterface */
 	private $logger;
 
+    /** @var IUserSession */
+    private $userSession;
 
-	public function __construct($AppName, IRequest $request, LoggerInterface $logger,IServerContainer $server) {
+    /** @var RocketUser */
+    private $rocketUser;
+
+	public function __construct($AppName,
+                                IRequest $request, 
+                                LoggerInterface $logger,
+                                IServerContainer $server, 
+                                IUserSession $userSession,
+                                RocketUser $rocketUser) {
 		parent::__construct($AppName, $request);
 		$this->config = new Config();
 		$this->server = $server;
 		$this->appName = Application::APP_ID;
         $this->logger = $logger;
+        $this->userSession = $userSession;
+        $this->rocketUser = $rocketUser;
 	}
 
 	/**
@@ -45,9 +59,14 @@ class PageController extends Controller {
             return new DataResponse(['message' => 'Not found!'], 404);
         }
 
+        $userUID = $this->userSession->getUser()->getUID();
+        if (!$this->rocketUser->findByNcUserId($userUID)) {
+            $this->rocketUser->createUser($userUID);
+        }
+
 		$response = new TemplateResponse($this->appName, 'index', [
 		    'url' => $rocketChatUrl,
-            'token' => '-tvvJYTozBXC-hecQk978AVXzS1_D1Brh9mLPIJldfz',
+            'token' => $authToken,
         ]);
 
         $policy = new ContentSecurityPolicy();

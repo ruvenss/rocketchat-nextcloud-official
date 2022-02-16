@@ -39,6 +39,30 @@ class Version000000Date20211203123456 extends SimpleMigrationStep {
             $table->setPrimaryKey(['file_id']);
         }
 
+        if (!$schema->hasTable('rocket_users')) {
+            $table = $schema->createTable('rocket_users');
+
+            $table->addColumn('nc_user_id', 'string', [
+                'notnull' => true,
+                'length' => 30,
+            ]);
+
+            $table->addColumn('rc_user_id', 'string', [
+                'notnull' => true,
+                'length' => 30
+            ]);
+
+            $table->addColumn('rc_token', 'string', [
+                'notnull' => true,
+                'length' => 50,
+            ]);
+            $table->addColumn('rc_current_channel_id', 'string', [
+                'notnull' => true,
+                'length' => 50,
+            ]);
+            $table->setPrimaryKey('nc_user_id');
+        }
+
         return $schema;
     }
 }

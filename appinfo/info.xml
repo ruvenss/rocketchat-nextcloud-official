@@ -36,5 +36,6 @@
 	<screenshot>https://files.nizu.io/images/screenshot_nextcloud_rc1_48814890.jpg</screenshot>
     <settings>
         <admin>OCA\RocketIntegration\Settings\AdminSettings</admin>
+        <admin-section>OCA\RocketIntegration\Sections\RocketChatAdminSection</admin-section>
     </settings>
 </info>
